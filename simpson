@@ -1,0 +1,54 @@
+#include<stdio.h>
+float findValueAt(float x)
+{
+	return 1/(1+(x*x));
+}
+int main()
+{
+	int n;
+	float i,a,b,sum=0,h;
+	int position_of_term=1;
+	printf("Enter value of a and b\n");
+	scanf("%f%f", &a, &b);
+	printf("Enter the number of intervals\n");
+	scanf("%d", &n);
+	h=(b-a)/n;
+	sum=findValueAt(a)+findValueAt(b);
+	int ch;
+	while(1)
+	{
+		printf("\nEnter the choice\n1.Simpson 1/3\n2.Simpson 3/8\n");
+		scanf("%d", &ch);
+		switch(ch)
+		{
+		case 1:
+			for(i=a+h;i<b;i=i+h)
+			{
+				if(position_of_term%2==0)
+					sum=sum+2*findValueAt(i);
+				else
+					sum=sum+4*findValueAt(i);
+				position_of_term++;
+			}
+			sum=(h*sum)/3;
+			printf("Value of the integral is %f", sum);
+			break;
+		
+		case 2:
+			for(i=a+h;i<b;i=i+h)
+			{
+				if(position_of_term%3==0)
+					sum=sum+2*findValueAt(i);
+				else
+					sum=sum+3*findValueAt(i);
+				position_of_term++;
+			}
+			sum=(3*h*sum)/8;
+			printf("Value of the integral is %f", sum);
+			break;
+		default:
+			return 0;
+			break;
+		}
+	}
+}
